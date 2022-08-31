@@ -1,0 +1,89 @@
+import axios from "axios";
+import { message } from "antd";
+
+import { LOADING } from "../constants/alertsConstants";
+import { GET_ALL_CARS } from "../constants/carConstants";
+
+
+
+export const getAllCars = () => async (dispatch) => {
+  dispatch({ type: LOADING, payload: true });
+  try {
+    const user = JSON.parse(localStorage.getItem("user"))
+    const response = await axios.get(`http://localhost:5005/api/getallcars`, {
+      headers: {
+        Authorization: `Bearer ${user.authToken}`,
+      },
+    }	);
+    dispatch({ type: GET_ALL_CARS, payload: response.data });
+    dispatch({ type: LOADING, payload: false });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: LOADING, payload: false });
+  }
+};
+
+export const addCar = (data) => async (dispatch) => {
+  dispatch({ type: LOADING, payload: true });
+  try {
+    const user = JSON.parse(localStorage.getItem("user"))
+    await axios.post(`http://localhost:5005/api/addcar`, data, {
+      headers: {
+        Authorization: `Bearer ${user.authToken}`,
+      },
+    }	);
+    
+    
+    dispatch({ type: LOADING, payload: false });
+
+    message.success("Car added successfully");
+    setTimeout(() => {
+      window.location.href = "/admin";
+    }, 500);
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: LOADING, payload: false });
+  }
+};
+
+export const editCar = (data) => async (dispatch) => {
+  dispatch({ type: LOADING, payload: true });
+  try {
+    const user = JSON.parse(localStorage.getItem("user"))
+    await axios.put(`http://localhost:5005/api/cars/${data._id}`, data, {
+      headers: {
+        Authorization: `Bearer ${user.authToken}`,
+      },
+    }	 );
+    dispatch({ type: LOADING, payload: false });
+
+    message.success("Car edited successfully");
+    setTimeout(() => {
+      window.location.href = "/admin";
+    }, 500);
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: LOADING, payload: false });
+  }
+};
+
+export const deleteCar = (data) => async (dispatch) => {
+  dispatch({ type: LOADING, payload: true });
+  try {
+    const user = JSON.parse(localStorage.getItem("user"))
+    await axios.delete(`http://localhost:5005/api/cars/${data.carid}`, {
+      headers: {
+        Authorization: `Bearer ${user.authToken}`,
+      },
+    }	);
+    dispatch({ type: LOADING, payload: false });
+
+    message.success("Car deleted successfully");
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: LOADING, payload: false });
+  }
+};
