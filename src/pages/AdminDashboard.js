@@ -23,7 +23,7 @@ const AdminDashboard = ({ user }) => {
   const getUserInfo = async() => {
     try {
         const user = JSON.parse(localStorage.getItem("user"))
-        let response = await axios.get(`https://enveco.netlify.app/auth/verify`, {
+        let response = await axios.get(`https://enveco.herokuapp.com/auth/verify`, {
             headers: {
               Authorization: `Bearer ${user.authToken}`,
             },

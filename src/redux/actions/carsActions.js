@@ -10,7 +10,7 @@ export const getAllCars = () => async (dispatch) => {
   dispatch({ type: LOADING, payload: true });
   try {
     const user = JSON.parse(localStorage.getItem("user"))
-    const response = await axios.get(`https://enveco.netlify.app/api/getallcars`, {
+    const response = await axios.get(`https://enveco.herokuapp.com/api/getallcars`, {
       headers: {
         Authorization: `Bearer ${user.authToken}`,
       },
@@ -27,7 +27,7 @@ export const addCar = (data) => async (dispatch) => {
   dispatch({ type: LOADING, payload: true });
   try {
     const user = JSON.parse(localStorage.getItem("user"))
-    await axios.post(`https://enveco.netlify.app/api/addcar`, data, {
+    await axios.post(`https://enveco.herokuapp.com/api/addcar`, data, {
       headers: {
         Authorization: `Bearer ${user.authToken}`,
       },
@@ -50,7 +50,7 @@ export const editCar = (data) => async (dispatch) => {
   dispatch({ type: LOADING, payload: true });
   try {
     const user = JSON.parse(localStorage.getItem("user"))
-    await axios.put(`https://enveco.netlify.app/api/cars/${data._id}`, data, {
+    await axios.put(`https://enveco.herokuapp.com/api/cars/${data._id}`, data, {
       headers: {
         Authorization: `Bearer ${user.authToken}`,
       },
@@ -71,7 +71,7 @@ export const deleteCar = (data) => async (dispatch) => {
   dispatch({ type: LOADING, payload: true });
   try {
     const user = JSON.parse(localStorage.getItem("user"))
-    await axios.delete(`https://enveco.netlify.app/api/cars/${data.carid}`, {
+    await axios.delete(`https://enveco.herokuapp.com/api/cars/${data.carid}`, {
       headers: {
         Authorization: `Bearer ${user.authToken}`,
       },

@@ -4,7 +4,7 @@ import axios from "axios";
 
 const api = axios.create({
   // make sure you use PORT = 5005 (the port where our server is running)
-  baseURL: "https://enveco.netlify.app/api"
+  baseURL: "https://enveco.herokuapp.com/api"
   // withCredentials: true // => you might need this option if using cookies and sessions
 });
 
