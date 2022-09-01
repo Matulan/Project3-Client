@@ -7,6 +7,8 @@ import SignUp from "./pages/SignUp";
 import UserBookings from "./pages/UserBooking";
 import AddCar from "./pages/AddCar";
 import EditCar from "./pages/EditCar";
+import Profile from "./pages/Profile";
+import Help from "./pages/Help";
 import AdminDashboard from "./pages/AdminDashboard";
 
 import "./App.css";
@@ -26,6 +28,8 @@ function App() {
           <Route path="/userRentals" element={<UserBookings user={user} />} />
           <Route path="/addcar" element={<AddCar user={user} />} />
           <Route path="/editcar/:carid" element={<EditCar user={user} />} />
+          <Route path="/profile" element={<Profile user={user} />} />
+          <Route path="/help" element={<Help />} />
           <Route path="/admin" element={<AdminDashboard user={user} />} />
         </Routes>
       </BrowserRouter>

@@ -6,7 +6,7 @@ import { LOADING } from "../constants/alertsConstants";
 export const userLogin = (data) => async (dispatch) => {
   dispatch({ type: LOADING, payload: true });
   try {
-    const response = await axios.post(`http://localhost:5005/auth/login`, data);
+    const response = await axios.post(`https://enveco.netlify.app/auth/login`, data);
     localStorage.setItem("user", JSON.stringify(response.data));
     message.success("Login successful");
     dispatch({ type: LOADING, payload: false });
@@ -24,7 +24,7 @@ export const userLogin = (data) => async (dispatch) => {
 export const userSignUp = (data) => async (dispatch) => {
   dispatch({ type: LOADING, payload: true });
   try {
-    await axios.post(`http://localhost:5005/auth/signup`, data);
+    await axios.post(`https://enveco.netlify.app/auth/signup`, data);
     message.success("Registration successful");
     setTimeout(() => {
       window.location.href = "/login";

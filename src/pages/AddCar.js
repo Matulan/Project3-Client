@@ -6,6 +6,7 @@ import DefaultLayout from "../components/DefaultLayout";
 import { addCar } from "../redux/actions/carsActions";
 import Spinner from "../components/Spinner";
 import { CountryRegionData } from "react-country-region-selector";
+import service from "../api/service";
 
 const { Option } = Select;
 
@@ -17,6 +18,8 @@ function AddCar({ user }) {
   const [states, setStates] = useState([]);
 
   const { loading } = useSelector((state) => state.alertsReducer);
+
+  const [image, setImage] = useState("");
 
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -52,6 +55,8 @@ function AddCar({ user }) {
       "" ||
       values.gear === undefined ||
       "" ||
+      values.accountDetails === undefined ||
+      "" ||
       values.country === undefined ||
       "" ||
       values.state === undefined ||
@@ -60,8 +65,29 @@ function AddCar({ user }) {
       message.error("Please fill all the fields");
     } else {
       values.bookedTimeSlots = [];
-      dispatch(addCar(values));
+      dispatch(addCar({...values, image: image}));
     }
+  };
+
+
+  const handleFileUpload = (e) => {
+    // console.log("The file to be uploaded is: ", e.target.files[0]);
+ 
+    const uploadData = new FormData();
+ 
+    // imageUrl => this name has to be the same as in the model since we pass
+    // req.body to .create() method when creating a new movie in '/api/movies' POST route
+    uploadData.append("image", e.target.files[0]);
+ 
+    service
+      .uploadImage(uploadData)
+      .then(response => {
+        // console.log("response is: ", response);
+        // response carries "fileUrl" which we can use to update the state
+        setImage(response.fileUrl);
+
+      })
+      .catch(err => console.log("Error while uploading the file: ", err));
   };
 
   return (
@@ -86,15 +112,15 @@ function AddCar({ user }) {
               </Form.Item>
 
               <Form.Item name="image" label="Image url">
-                <Input placeholder="Image URL" />
+                <Input type="file" placeholder="Image URL" onChange={handleFileUpload}/>
               </Form.Item>
 
               <Form.Item name="rentPerHour" label="Rent per hour">
-                <Input placeholder="Rent Per Hour" />
+                <Input type="number" placeholder="Rent Per Hour" />
               </Form.Item>
 
               <Form.Item name="capacity" label="Capacity">
-                <Input placeholder="Capacity" />
+                <Input type="number" placeholder="Capacity" />
               </Form.Item>
 
               <Form.Item name="gear" label="Gear-type">
@@ -104,6 +130,10 @@ function AddCar({ user }) {
 
               <Form.Item name="fuelType" label="Fuel Type">
                 <Input placeholder="Gasoline, Diesel or Electric" />
+              </Form.Item>
+
+              <Form.Item name="accountDetails" label="Account Details">
+                <Input placeholder="Account Details" />
               </Form.Item>
 
               <Form.Item name="country" label="Country">

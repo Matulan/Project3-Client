@@ -23,7 +23,7 @@ const AdminDashboard = ({ user }) => {
   const getUserInfo = async() => {
     try {
         const user = JSON.parse(localStorage.getItem("user"))
-        let response = await axios.get(`http://localhost:5005/auth/verify`, {
+        let response = await axios.get(`https://enveco.netlify.app/auth/verify`, {
             headers: {
               Authorization: `Bearer ${user.authToken}`,
             },
@@ -63,6 +63,9 @@ const AdminDashboard = ({ user }) => {
             <div className="text-right">
               <Link className="button1 box-shadow" to="/addcar">
                 Add New Car
+              </Link>
+              <Link className="button1 box-shadow" to="/profile">
+                Profile
               </Link>
             </div>
           </Col>

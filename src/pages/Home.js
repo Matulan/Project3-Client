@@ -19,6 +19,8 @@ import car from "../assets/car.png";
 import money from "../assets/money.png";
 import tool from "../assets/tool.png";
 import eco from "../assets/eco.png";
+import facebook from "../assets/facebook.png"
+import instagram from "../assets/instagram.png"
 import { CountryRegionData } from "react-country-region-selector";
 
 const { Title } = Typography;
@@ -109,6 +111,9 @@ const Home = ({ user }) => {
   };
   return (
     <DefaultLayout>
+        <Link className="button1 box-shadow" to="/help">
+         Help
+        </Link>
       <div className="back-img">
         <Title level={3} className="main-title-text">
           Eco-Friendly & smart car sharing that is good for the enviroment
@@ -280,6 +285,19 @@ const Home = ({ user }) => {
           </Title>
         </Space>
       </Row>
+      <footer>
+      <a href="/help">
+        </a>
+      <br/>
+      <a href="https://www.facebook.com/people/Enveco/100085227875313/"><img src={facebook} height={30} alt="facebook" />
+        </a>
+      <br/>
+      <a href="https://www.instagram.com/enveco1sharing/"><img src={instagram} height={30} alt="instagram" />
+        </a>
+      <br/>
+
+
+      </footer>
     </DefaultLayout>
   );
 };

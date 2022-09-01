@@ -104,6 +104,9 @@ function EditCar({ user }) {
                 <Form.Item name="fuelType" label="Fuel Type">
                   <Input placeholder="Fuel Type" />
                 </Form.Item>
+                <Form.Item name="accountDetails" label="Account Details">
+                  <Input placeholder="Account Details" />
+                </Form.Item>
                 <Form.Item name="country" label="Country">
                   <Select
                     allowClear
